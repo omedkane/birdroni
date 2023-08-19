@@ -1,6 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome"
 import { IconButtonProps } from "@expo/vector-icons/build/createIconSet"
-import { ImageSourcePropType, Pressable, SectionList, StatusBar, TextInput, View } from "react-native"
+import { useRef, useState } from "react"
+import { Animated, ImageSourcePropType, Pressable, SectionList, TextInput, View } from "react-native"
 import { SafeAreaView, Text, Image } from "react-native"
 
 interface QuickChatInfo { name: string, lastMsg: string, unreadNb: number, lastMsgDate: string, avatar: ImageSourcePropType }
@@ -23,22 +24,26 @@ const pinnedChats: QuickChatInfo[] = [
 ]
 
 const unpinned: QuickChatInfo[] = [
-  ...[...Array(15).keys()].map(() => (
-    {
-      avatar: require('../../assets/images/avatars/avatar4.png'),
-      name: "Killer Bee",
-      lastMsg: "Yo check out my new rap song...",
-      lastMsgDate: "13:40",
-      unreadNb: 1,
-    }
-  ))
-  ,
+  {
+    avatar: require('../../assets/images/avatars/avatar4.png'),
+    name: "Killer Bee",
+    lastMsg: "Yo check out my new rap song...",
+    lastMsgDate: "13:40",
+    unreadNb: 1,
+  },
   {
     avatar: require('../../assets/images/avatars/avatar3.png'),
     name: "Tenten",
     lastMsg: "Made a shuriken with bamboo...",
     lastMsgDate: "Just now",
     unreadNb: 4,
+  },
+  {
+    avatar: require('../../assets/images/avatars/avatar1.png'),
+    name: "The Notorious Panda",
+    lastMsg: "Meet you in japan haha 😎",
+    lastMsgDate: "Just now",
+    unreadNb: 1,
   },
 ]
 
@@ -61,13 +66,14 @@ const chatSections:
   ]
 
 export default function Layout() {
-  return <SafeAreaView className="flex flex-1 bg-[#1c1c24] py-8">
-    <View style={{ height: StatusBar.currentHeight }}></View>
+  const tabs = ['All', 'Chats', 'Groups']
 
+  return <SafeAreaView className="flex flex-1 bg-[#1c1c24]">
     <SectionList
       sections={chatSections}
+      StickyHeaderComponent={() => <View className="h-14 w-full bg-white"></View>}
       ListHeaderComponent={() => (
-        <View className="px-5 mb-5 flex justify-start items-start">
+        <View className="px-5 pt-14 mb-5 flex justify-start items-start">
           <View className="flex w-full flex-row items-center justify-between">
             <View className="flex flex-row items-center">
               <Text className="text-2xl font-gen-semibold text-white">Messages</Text>
@@ -83,17 +89,8 @@ export default function Layout() {
             </TextInput>
             <FontAwesome name="search" color={'gray'} size={18}></FontAwesome>
           </View>
-
-          <View className="mt-5 flex flex-row self-center flex-none bg-black rounded-2xl p-1">
-            <View className="h-12 w-20 flex justify-center items-center bg-white rounded-2xl">
-              <Text className="text-black">All</Text>
-            </View>
-            <View className="h-12 w-20 flex justify-center items-center rounded-2xl">
-              <Text className="text-gray-500">Chats</Text>
-            </View>
-            <View className="h-12 w-20 flex justify-center items-center rounded-2xl">
-              <Text className="text-gray-500">Groups</Text>
-            </View>
+          <View className="mt-5 self-center">
+            <TabSelector tabs={tabs}></TabSelector>
           </View>
         </View>
       )}
@@ -137,5 +134,33 @@ function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, last
         </View>
       </View>
     </Pressable>
+  )
+}
+
+function TabSelector(p: { tabs: string[], onTabSelected?: (tabNb: number) => void }) {
+  const [currTab, setCurrTab] = useState(0)
+  const translation = useRef(new Animated.Value(0)).current
+
+  const slide = (tabNb: number) => {
+    setCurrTab(tabNb)
+    Animated.timing(translation, {
+      toValue: 80 * tabNb,
+      duration: 250,
+      useNativeDriver: true
+    }).start()
+  }
+  return (
+    <View className="flex bg-black rounded-2xl p-1">
+      <View className="flex-row relative">
+        <Animated.View className="bg-white h-12 w-20 absolute left-0 top-0 rounded-2xl" style={{ transform: [{ translateX: translation }] }}></Animated.View>
+        {
+          p.tabs.map((t, i) => (
+            <View key={i} onTouchStart={() => slide(i)} className="h-12 w-20 flex justify-center items-center rounded-2xl">
+              <Text style={{ color: currTab === i ? 'black' : 'gray' }} className="text-black">{t}</Text>
+            </View>
+          ))
+        }
+      </View>
+    </View>
   )
 }
