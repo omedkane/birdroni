@@ -4,6 +4,7 @@ import { IconButtonProps } from "@expo/vector-icons/build/createIconSet"
 
 export const pinnedGroupChats: QuickGroupChatInfo[] = [
 	{
+		id: 'chat1',
 		avatar: require('../assets/images/avatars/avatar11.jpg'),
 		name: "Team 7",
 		lastMsg: "Guess who is the new hokage...",
@@ -12,6 +13,7 @@ export const pinnedGroupChats: QuickGroupChatInfo[] = [
 		lastMsgSender: 'Naruto',
 	},
 	{
+		id: 'chat2',
 		avatar: require('../assets/images/avatars/avatar8.jpg'),
 		name: "Sand diplomats",
 		lastMsg: "When is the next meeting...",
@@ -23,6 +25,7 @@ export const pinnedGroupChats: QuickGroupChatInfo[] = [
 
 export const unpinnedGroupChats: QuickGroupChatInfo[] = [
 	{
+		id: 'chat3',
 		avatar: require('../assets/images/avatars/avatar10.jpg'),
 		name: "Uchicha Clan",
 		lastMsg: "You're kidding right ?",
@@ -31,6 +34,7 @@ export const unpinnedGroupChats: QuickGroupChatInfo[] = [
 		lastMsgSender: 'Madara',
 	},
 	{
+		id: 'chat4',
 		avatar: require('../assets/images/avatars/avatar9.jpg'),
 		name: "Uzumaki Clan",
 		lastMsg: "You're talking to the new hokage 😁",
@@ -41,6 +45,7 @@ export const unpinnedGroupChats: QuickGroupChatInfo[] = [
 ]
 export const pinnedChats: QuickChatInfo[] = [
 	{
+		id: 'chat5',
 		avatar: require('../assets/images/avatars/avatar5.png'),
 		name: "Naruto Uzumaki",
 		lastMsg: "Guess who is the new hokage...",
@@ -48,6 +53,7 @@ export const pinnedChats: QuickChatInfo[] = [
 		unreadNb: 1,
 	},
 	{
+		id: 'chat6',
 		avatar: require('../assets/images/avatars/avatar2.png'),
 		name: "Madara Uchiha",
 		lastMsg: "Next time my plan will work...",
@@ -58,6 +64,7 @@ export const pinnedChats: QuickChatInfo[] = [
 
 export const unpinnedChats: QuickChatInfo[] = [
 	{
+		id: 'chat7',
 		avatar: require('../assets/images/avatars/avatar4.png'),
 		name: "Killer Bee",
 		lastMsg: "Yo check out my new rap song...",
@@ -65,6 +72,7 @@ export const unpinnedChats: QuickChatInfo[] = [
 		unreadNb: 1,
 	},
 	{
+		id: 'chat8',
 		avatar: require('../assets/images/avatars/avatar3.png'),
 		name: "Tenten",
 		lastMsg: "Made a shuriken with bamboo...",
@@ -72,6 +80,7 @@ export const unpinnedChats: QuickChatInfo[] = [
 		unreadNb: 4,
 	},
 	{
+		id: 'chat9',
 		avatar: require('../assets/images/avatars/avatar1.png'),
 		name: "The Notorious Panda",
 		lastMsg: "Meet you in japan haha 😎",

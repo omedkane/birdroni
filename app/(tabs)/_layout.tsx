@@ -58,6 +58,7 @@ export default function Layout() {
 
       renderItem={(s) => (
         <ChatSelector
+          key={s.item.id}
           avatar={s.item.avatar}
           name={s.item.name}
           lastMsg={s.item.lastMsg} lastMsgDate={s.item.lastMsgDate} lastMsgSender={(s.item as any).lastMsgSender}
