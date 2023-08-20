@@ -55,10 +55,10 @@ export default function Layout() {
           </View>
         </View>
       )}
-
+      keyExtractor={i => i.id}
+      initialNumToRender={1}
       renderItem={(s) => (
         <ChatSelector
-          key={s.item.id}
           avatar={s.item.avatar}
           name={s.item.name}
           lastMsg={s.item.lastMsg} lastMsgDate={s.item.lastMsgDate} lastMsgSender={(s.item as any).lastMsgSender}
@@ -99,8 +99,11 @@ function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, last
 function TabSelector(p: { tabs: string[], onTabSelected?: (tabNb: number) => void }) {
   const [currTab, setCurrTab] = useState(0)
   const translation = useRef(new Animated.Value(0)).current
+  let animating = false
 
   const slide = useCallback((tabNb: number) => {
+    if (animating || tabNb === currTab) return;
+    animating = true
     Animated.timing(translation, {
       toValue: 80 * tabNb,
       duration: 250,
@@ -109,6 +112,7 @@ function TabSelector(p: { tabs: string[], onTabSelected?: (tabNb: number) => voi
       setCurrTab(tabNb)
       if (p.onTabSelected !== undefined)
         p.onTabSelected(tabNb)
+      animating = false
     })
   }, [])
   return (
