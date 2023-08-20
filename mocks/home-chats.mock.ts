@@ -15,7 +15,7 @@ export const pinnedGroupChats: QuickGroupChatInfo[] = [
 	{
 		id: 'chat2',
 		avatar: require('../assets/images/avatars/avatar8.jpg'),
-		name: "Sand diplomats",
+		name: "Sand Diplomats",
 		lastMsg: "When is the next meeting...",
 		lastMsgDate: "5:52",
 		unreadNb: 4,
