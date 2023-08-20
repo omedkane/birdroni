@@ -1,37 +1,28 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome"
-import { IconButtonProps } from "@expo/vector-icons/build/createIconSet"
-import { useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Animated, ImageSourcePropType, Pressable, SectionList, TextInput, View } from "react-native"
 import { SafeAreaView, Text, Image } from "react-native"
-import QuickChatInfo from "../../interfaces/QuickChatInfo"
-import { pinnedChats, unpinnedChats } from "../../mocks/home-chats.mock"
+import { allSections, chatSections, groupSections } from "../../mocks/home-chats.mock"
 
-const chatSections:
-  {
-    title: string,
-    icon: typeof FontAwesome['Button'] extends React.ComponentClass<IconButtonProps<infer v>> ? v : never,
-    data: QuickChatInfo[]
-  }[] = [
-    {
-      title: "Pinned Chats",
-      icon: "map-pin",
-      data: pinnedChats
-    },
-    {
-      title: "Unpinned Chats",
-      icon: "address-book",
-      data: unpinnedChats,
-    }
-  ]
+
+type Tab = 'All' | 'Chats' | 'Group'
+const tabsData = {
+  All: allSections,
+  Chats: chatSections,
+  Group: groupSections,
+}
+
+const tabs = Object.keys(tabsData)
 
 export default function Layout() {
-  const tabs = ['All', 'Chats', 'Groups']
+  const [currentSection, setCurrentSection] = useState(allSections)
+  const onTabSelected = useCallback((index: number) => setCurrentSection(tabsData[tabs[index] as Tab]), [])
 
   return <SafeAreaView className="flex flex-1 bg-[#1c1c24]">
     <SectionList
-      sections={chatSections}
-      StickyHeaderComponent={() => <View className="h-14 w-full bg-white"></View>}
-      ListHeaderComponent={() => (
+      sections={currentSection}
+
+      ListHeaderComponent={
         <View className="px-5 pt-14 mb-5 flex justify-start items-start">
           <View className="flex w-full flex-row items-center justify-between">
             <View className="flex flex-row items-center">
@@ -49,11 +40,13 @@ export default function Layout() {
             <FontAwesome name="search" color={'gray'} size={18}></FontAwesome>
           </View>
           <View className="mt-5 self-center">
-            <TabSelector tabs={tabs}></TabSelector>
+            <TabSelector tabs={tabs} onTabSelected={onTabSelected}></TabSelector>
           </View>
         </View>
-      )}
+      }
+
       SectionSeparatorComponent={() => <View className="mt-4"></View>}
+
       renderSectionHeader={(section) => (
         <View className="flex">
           <View className="ml-5 flex flex-row items-center">
@@ -62,10 +55,13 @@ export default function Layout() {
           </View>
         </View>
       )}
+
       renderItem={(s) => (
         <ChatSelector
           avatar={s.item.avatar}
-          name={s.item.name} lastMsg={s.item.lastMsg} lastMsgDate={s.item.lastMsgDate} unreadNb={s.item.unreadNb} ></ChatSelector>
+          name={s.item.name}
+          lastMsg={s.item.lastMsg} lastMsgDate={s.item.lastMsgDate} lastMsgSender={(s.item as any).lastMsgSender}
+          unreadNb={s.item.unreadNb} ></ChatSelector>
       )}
     >
     </SectionList>
@@ -73,7 +69,7 @@ export default function Layout() {
   </SafeAreaView>
 }
 
-function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, lastMsgDate: string, avatar: ImageSourcePropType }) {
+function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, lastMsgDate: string, lastMsgSender?: string, avatar: ImageSourcePropType }) {
   return (
     <Pressable android_ripple={{ color: 'gray' }}>
       <View className="flex flex-row w-full py-3 px-5">
@@ -82,7 +78,10 @@ function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, last
         <View className="flex flex-row flex-1 justify-between items-center">
           <View className="ml-4 flex justify-center">
             <Text className="text-white font-gen-medium text-base">{p.name}</Text>
-            <Text className="mt-1 font-gen-regular text-base text-gray-500">{p.lastMsg}</Text>
+            <View className="mt-1 flex flex-row items-center">
+              {p.lastMsgSender ? <Text className="font-gen-regular text-cyan-500">{p.lastMsgSender} : </Text> : null}
+              <Text className="font-gen-regular text-base text-gray-500">{p.lastMsg}</Text>
+            </View>
           </View>
           <View className="flex items-center">
             <View className="h-6 w-6 rounded-full justify-center items-center bg-pink-600">
@@ -100,14 +99,17 @@ function TabSelector(p: { tabs: string[], onTabSelected?: (tabNb: number) => voi
   const [currTab, setCurrTab] = useState(0)
   const translation = useRef(new Animated.Value(0)).current
 
-  const slide = (tabNb: number) => {
-    setCurrTab(tabNb)
+  const slide = useCallback((tabNb: number) => {
     Animated.timing(translation, {
       toValue: 80 * tabNb,
       duration: 250,
       useNativeDriver: true
-    }).start()
-  }
+    }).start(() => {
+      setCurrTab(tabNb)
+      if (p.onTabSelected !== undefined)
+        p.onTabSelected(tabNb)
+    })
+  }, [])
   return (
     <View className="flex bg-black rounded-2xl p-1">
       <View className="flex-row relative">
