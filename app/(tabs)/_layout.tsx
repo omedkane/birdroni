@@ -74,7 +74,7 @@ function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, last
   return (
     <Pressable android_ripple={{ color: 'gray' }}>
       <View className="flex flex-row w-full py-3 px-5">
-        <Image className="h-14 w-14 rounded-full shadow-black" source={p.avatar}></Image>
+        <Image className="h-14 w-14 rounded-full" source={p.avatar}></Image>
 
         <View className="flex flex-row flex-1 justify-between items-center">
           <View className="ml-4 flex justify-center">
