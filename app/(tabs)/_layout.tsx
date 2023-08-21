@@ -1,5 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { Animated, ImageSourcePropType, Pressable, SectionList, TextInput, View } from "react-native"
 import { SafeAreaView, Text, Image } from "react-native"
 import { allSections, chatSections, groupSections } from "../../mocks/home-chats.mock"
@@ -101,7 +101,7 @@ function TabSelector(p: { tabs: string[], onTabSelected?: (tabNb: number) => voi
   const translation = useRef(new Animated.Value(0)).current
   let animating = false
 
-  const slide = useCallback((tabNb: number) => {
+  const slide = (tabNb: number) => {
     if (animating || tabNb === currTab) return;
     animating = true
     Animated.timing(translation, {
@@ -114,7 +114,7 @@ function TabSelector(p: { tabs: string[], onTabSelected?: (tabNb: number) => voi
         p.onTabSelected(tabNb)
       animating = false
     })
-  }, [])
+  }
   return (
     <View className="flex bg-black rounded-2xl p-1">
       <View className="flex-row relative">
