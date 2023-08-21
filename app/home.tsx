@@ -2,7 +2,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome"
 import { useCallback, useRef, useState } from "react"
 import { Animated, ImageSourcePropType, Pressable, SectionList, TextInput, View } from "react-native"
 import { SafeAreaView, Text, Image } from "react-native"
-import { allSections, chatSections, groupSections } from "../../mocks/home-chats.mock"
+import { allSections, chatSections, groupSections } from "../mocks/home-chats.mock"
 
 
 type Tab = 'All' | 'Chats' | 'Group'
