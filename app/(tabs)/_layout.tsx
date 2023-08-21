@@ -6,17 +6,17 @@ import { allSections, chatSections, groupSections } from "../../mocks/home-chats
 
 
 type Tab = 'All' | 'Chats' | 'Group'
-const tabsData = {
+const tabMap = {
   All: allSections,
   Chats: chatSections,
   Group: groupSections,
 }
 
-const tabs = Object.keys(tabsData)
+const tabNames = Object.keys(tabMap)
 
 export default function Layout() {
   const [currentSection, setCurrentSection] = useState(allSections)
-  const onTabSelected = useCallback((index: number) => setCurrentSection(tabsData[tabs[index] as Tab]), [])
+  const onTabSelected = useCallback((index: number) => setCurrentSection(tabMap[tabNames[index] as Tab]), [])
 
   return <SafeAreaView className="flex flex-1 bg-[#1c1c24]">
     <SectionList
@@ -40,7 +40,7 @@ export default function Layout() {
             <FontAwesome name="search" color={'gray'} size={18}></FontAwesome>
           </View>
           <View className="mt-5 self-center">
-            <TabSelector tabs={tabs} onTabSelected={onTabSelected}></TabSelector>
+            <TabSelector tabs={tabNames} onTabSelected={onTabSelected}></TabSelector>
           </View>
         </View>
       }

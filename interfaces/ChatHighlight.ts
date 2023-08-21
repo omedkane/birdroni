@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from "react-native"
 
-export interface QuickChatInfo {
+export interface ChatHighlight {
 	id: string,
 	name: string
 	lastMsg: string
@@ -9,6 +9,6 @@ export interface QuickChatInfo {
 	avatar: ImageSourcePropType
 }
 
-export interface QuickGroupChatInfo extends QuickChatInfo {
+export interface GroupChatHighlight extends ChatHighlight {
 	lastMsgSender: string
 }

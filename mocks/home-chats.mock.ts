@@ -1,8 +1,8 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome"
-import { QuickChatInfo, QuickGroupChatInfo } from "../interfaces/QuickChatInfo"
+import { ChatHighlight, GroupChatHighlight } from "../interfaces/ChatHighlight"
 import { IconButtonProps } from "@expo/vector-icons/build/createIconSet"
 
-export const pinnedGroupChats: QuickGroupChatInfo[] = [
+export const pinnedGroupChats: GroupChatHighlight[] = [
 	{
 		id: 'chat1',
 		avatar: require('../assets/images/avatars/avatar11.jpg'),
@@ -23,7 +23,7 @@ export const pinnedGroupChats: QuickGroupChatInfo[] = [
 	},
 ]
 
-export const unpinnedGroupChats: QuickGroupChatInfo[] = [
+export const unpinnedGroupChats: GroupChatHighlight[] = [
 	{
 		id: 'chat3',
 		avatar: require('../assets/images/avatars/avatar10.jpg'),
@@ -43,7 +43,7 @@ export const unpinnedGroupChats: QuickGroupChatInfo[] = [
 		lastMsgSender: 'Naruto'
 	},
 ]
-export const pinnedChats: QuickChatInfo[] = [
+export const pinnedChats: ChatHighlight[] = [
 	{
 		id: 'chat5',
 		avatar: require('../assets/images/avatars/avatar5.png'),
@@ -62,7 +62,7 @@ export const pinnedChats: QuickChatInfo[] = [
 	},
 ]
 
-export const unpinnedChats: QuickChatInfo[] = [
+export const unpinnedChats: ChatHighlight[] = [
 	{
 		id: 'chat7',
 		avatar: require('../assets/images/avatars/avatar4.png'),
@@ -89,7 +89,7 @@ export const unpinnedChats: QuickChatInfo[] = [
 	},
 ]
 
-interface Section<C extends QuickChatInfo | QuickGroupChatInfo = QuickChatInfo> {
+interface Section<C extends ChatHighlight | GroupChatHighlight = ChatHighlight> {
 	title: string,
 	icon: typeof FontAwesome['Button'] extends React.ComponentClass<IconButtonProps<infer v>> ? v : never,
 	data: C[]
@@ -109,7 +109,7 @@ export const chatSections: Section[] = [
 	{ ...unpinnedSectionTitle, data: unpinnedChats }
 ]
 
-export const groupSections: Section<QuickGroupChatInfo>[] = [
+export const groupSections: Section<GroupChatHighlight>[] = [
 	{ ...pinnedSectionTitle, data: pinnedGroupChats },
 	{ ...unpinnedSectionTitle, data: unpinnedGroupChats }
 ]
