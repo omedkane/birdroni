@@ -49,7 +49,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#1c1c24' } }}>
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#1c1c24' }, animation: 'fade_from_bottom' }}>
       <Stack.Screen name="index" />
     </Stack>
   )
