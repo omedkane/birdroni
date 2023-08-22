@@ -1,6 +1,7 @@
 import { AntDesign, FontAwesome } from "@expo/vector-icons"
 import { SafeAreaView, SectionList, View, Text, StatusBar, Image } from "react-native"
 import IconButton from "../../components/IconButton"
+import { router } from "expo-router"
 
 export default function Chat() {
 	return (
@@ -10,8 +11,8 @@ export default function Chat() {
 				ListHeaderComponent={
 					<View className="flex flex-row w-full pl-1 pr-2 py-3 bg-[#26262e] justify-between items-center" style={{ marginTop: StatusBar.currentHeight, elevation: 1 }}>
 						<View className="flex flex-row flex-1 items-center">
-							<IconButton onPress={() => { }}>
-								<FontAwesome className="m-auto" name="angle-left" color='white' size={24}></FontAwesome>
+							<IconButton onPress={router.back}>
+								<AntDesign className="m-auto" name="left" color='white' size={22}></AntDesign>
 							</IconButton>
 							<View>
 								<Image
@@ -29,11 +30,24 @@ export default function Chat() {
 
 						</View>
 
-						<IconButton onPress={() => { }}>
-							<AntDesign className="m-auto" name="bars" color='white' size={24}></AntDesign>
-						</IconButton>
+						<View className="flex flex-row">
+							<IconButton onPress={() => { }}>
+								<AntDesign className="m-auto" name="search1" color='white' size={22}></AntDesign>
+							</IconButton>
+							<IconButton onPress={() => { }}>
+								<AntDesign className="m-auto" name="bars" color='white' size={22}></AntDesign>
+							</IconButton>
+						</View>
 					</View>
 				}></SectionList>
 		</SafeAreaView>
+	)
+}
+
+function Bubble() {
+	return (
+		<View className="px-3 py-2">
+			<Text className="text-white text-base"></Text>
+		</View>
 	)
 }

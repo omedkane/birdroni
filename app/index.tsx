@@ -1,9 +1,9 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome"
 import { useCallback, useRef, useState } from "react"
 import { Animated, ImageSourcePropType, Pressable, SectionList, TextInput, View } from "react-native"
 import { SafeAreaView, Text, Image } from "react-native"
 import { allSections, chatSections, groupSections } from "../mocks/home-chats.mock"
 import { Link } from "expo-router"
+import { AntDesign, FontAwesome } from "@expo/vector-icons"
 
 
 type Tab = 'All' | 'Chats' | 'Group'
@@ -32,7 +32,7 @@ export default function Layout() {
                 <Text className="font-gen-semibold">48</Text> new</Text>
             </View>
             <Link href={'/chat/123'}>
-              <FontAwesome name="edit" color={'#06B6D4'} size={20}></FontAwesome>
+              <FontAwesome name="edit" color={'#06B6D4'} size={22}></FontAwesome>
             </Link>
           </View>
 
@@ -40,7 +40,7 @@ export default function Layout() {
             <TextInput placeholder="Search a chat or a message..." placeholderTextColor={'gray'}
               className="flex-1 text-white text-base">
             </TextInput>
-            <FontAwesome name="search" color={'gray'} size={18}></FontAwesome>
+            <AntDesign name="search1" color={'gray'} size={18}></AntDesign>
           </View>
           <View className="mt-5 self-center">
             <TabSelector tabs={tabNames} onTabSelected={onTabSelected}></TabSelector>
@@ -87,7 +87,7 @@ function ChatSelector(p: { name: string, lastMsg: string, unreadNb: number, last
               <Text className="font-gen-regular text-base text-gray-500">{p.lastMsg}</Text>
             </View>
           </View>
-          <View className="flex items-center">
+          <View className="flex items-end">
             <View className="h-6 w-6 rounded-full justify-center items-center bg-pink-600">
               <Text className="text-white font-gen-semibold leading-none">{p.unreadNb}</Text>
             </View>
