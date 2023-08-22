@@ -3,6 +3,7 @@ import { useCallback, useRef, useState } from "react"
 import { Animated, ImageSourcePropType, Pressable, SectionList, TextInput, View } from "react-native"
 import { SafeAreaView, Text, Image } from "react-native"
 import { allSections, chatSections, groupSections } from "../mocks/home-chats.mock"
+import { Link } from "expo-router"
 
 
 type Tab = 'All' | 'Chats' | 'Group'
@@ -18,7 +19,7 @@ export default function Layout() {
   const [currentSection, setCurrentSection] = useState(allSections)
   const onTabSelected = useCallback((index: number) => setCurrentSection(tabMap[tabNames[index] as Tab]), [])
 
-  return <SafeAreaView className="flex flex-1 bg-[#1c1c24]">
+  return <SafeAreaView className="flex flex-1">
     <SectionList
       sections={currentSection}
 
@@ -30,7 +31,9 @@ export default function Layout() {
               <Text className="ml-2 text-lg font-gen-medium text-cyan-500">
                 <Text className="font-gen-semibold">48</Text> new</Text>
             </View>
-            <FontAwesome name="edit" color={'#06B6D4'} size={20}></FontAwesome>
+            <Link href={'/chat/123'}>
+              <FontAwesome name="edit" color={'#06B6D4'} size={20}></FontAwesome>
+            </Link>
           </View>
 
           <View className="mt-5 flex flex-row h-14 px-4 bg-black rounded-xl items-center">
