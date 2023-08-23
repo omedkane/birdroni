@@ -29,14 +29,9 @@ export default function Chat() {
 
 				</View>
 
-				<View className="flex flex-row">
-					<IconButton onPress={() => { }}>
-						<AntDesign className="m-auto" name="search1" color='white' size={22}></AntDesign>
-					</IconButton>
-					<IconButton onPress={() => { }}>
-						<AntDesign className="m-auto" name="bars" color='white' size={22}></AntDesign>
-					</IconButton>
-				</View>
+				<IconButton onPress={() => { }}>
+					<AntDesign className="m-auto" name="search1" color='white' size={22}></AntDesign>
+				</IconButton>
 			</View>
 			<ImageBackground className="flex-1 pt-6 pb-2 px-4" style={{ rowGap: 12 }} source={require('../../assets/images/wallpaper.jpg')}>
 				<Bubble text="This is exactly what I mean, you should make it !" hourSent="1:30 PM" me={false}></Bubble>
