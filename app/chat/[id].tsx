@@ -1,7 +1,8 @@
-import { AntDesign } from "@expo/vector-icons"
-import { SafeAreaView, View, Text, StatusBar, Image, ImageBackground } from "react-native"
+import { AntDesign, FontAwesome } from "@expo/vector-icons"
+import { SafeAreaView, View, Text, StatusBar, Image, ImageBackground, TextInput } from "react-native"
 import IconButton from "../../components/IconButton"
 import { router } from "expo-router"
+import { useState } from "react"
 
 export default function Chat() {
 	return (
@@ -37,11 +38,13 @@ export default function Chat() {
 					</IconButton>
 				</View>
 			</View>
-			<ImageBackground className="flex-1 py-6 px-4" style={{ rowGap: 12 }} source={require('../../assets/images/wallpaper.jpg')}>
+			<ImageBackground className="flex-1 pt-6 pb-2 px-4" style={{ rowGap: 12 }} source={require('../../assets/images/wallpaper.jpg')}>
 				<Bubble text="This is exactly what I mean, you should make it !" hourSent="1:30 PM" me={false}></Bubble>
 				<Bubble text="I don't know man, this is a bit hard for me !" hourSent="11:30 AM" me={true}></Bubble>
+				{/* <SectionList sections={[]}></SectionList> */}
+				<View className="flex-1"></View>
+				<MessageInput></MessageInput>
 			</ImageBackground>
-			{/* <SectionList sections={[]}></SectionList> */}
 		</SafeAreaView>
 	)
 }
@@ -50,11 +53,33 @@ function Bubble(p: { text: string, hourSent: string, me: boolean }) {
 	return (
 		<View className="flex w-full justify-start">
 			<View className={p.me ? 'self-end' : 'self-start'}>
-				<View className={`mt-1 px-3 py-3 ${p.me ? 'bg-violet-800/70' : 'bg-[#26262e]/80'} self-start rounded-full`}>
+				<View className={`mt-1 p-3 ${p.me ? 'bg-violet-800/70' : 'bg-[#26262e]/80'} self-start rounded-full`}>
 					<Text className="font-gen-regular text-white text-base">{p.text}</Text>
 				</View>
 				<Text className="mr-2 self-end text-gray-400 text-xs">{p.hourSent}</Text>
 			</View>
+		</View>
+	)
+}
+
+function MessageInput() {
+	const [hasText, setHasText] = useState(false)
+	return (
+		<View className="flex flex-row justify-between items-center w-full bg-[#26262e]/80 rounded-full overflow-hidden">
+			<TextInput
+				placeholder="Type your message here..."
+				placeholderTextColor={'gray'}
+				multiline
+				cursorColor="white"
+				onChangeText={text => setHasText(!!text)}
+				className="flex-1 font-gen-regular text-base text-white px-3 py-3" />
+
+			<View className="mx-[8]">
+				<IconButton onPress={() => { }} color={hasText ? 'rgb(91,33,182)' : 'rgba(91,33,182,0.5)'}>
+					<FontAwesome name="paper-plane" color={hasText ? 'white' : 'rgba(255,255,255,0.5)'} size={16}></FontAwesome>
+				</IconButton>
+			</View>
+
 		</View>
 	)
 }
