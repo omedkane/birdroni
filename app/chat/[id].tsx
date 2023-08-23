@@ -33,12 +33,14 @@ export default function Chat() {
 					<AntDesign className="m-auto" name="search1" color='white' size={22}></AntDesign>
 				</IconButton>
 			</View>
-			<ImageBackground className="flex-1 pt-6 pb-2 px-4" style={{ rowGap: 12 }} source={require('../../assets/images/wallpaper.jpg')}>
-				<Bubble text="This is exactly what I mean, you should make it !" hourSent="1:30 PM" me={false}></Bubble>
-				<Bubble text="I don't know man, this is a bit hard for me !" hourSent="11:30 AM" me={true}></Bubble>
-				{/* <SectionList sections={[]}></SectionList> */}
-				<View className="flex-1"></View>
-				<MessageInput></MessageInput>
+			<ImageBackground className="flex-1" source={require('../../assets/images/wallpaper.jpg')}>
+				<View className="flex-1 pt-6 pb-4 px-4 bg-black/10" style={{ rowGap: 12 }}>
+					<Bubble text="This is exactly what I mean, you should make it !" hourSent="1:30 PM" me={false}></Bubble>
+					<Bubble text="I don't know man, this is a bit hard for me !" hourSent="11:30 AM" me={true}></Bubble>
+					{/* <SectionList sections={[]}></SectionList> */}
+					<View className="flex-1"></View>
+					<MessageInput></MessageInput>
+				</View>
 			</ImageBackground>
 		</SafeAreaView>
 	)
