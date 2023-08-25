@@ -4,5 +4,5 @@ export default interface User {
 	id: string
 	firstname: string
 	lastname: string
-	chats: Chat[]
+	avatar: string
 }
