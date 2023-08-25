@@ -69,7 +69,7 @@ function MessageInput() {
 				multiline
 				cursorColor="white"
 				onChangeText={text => setHasText(!!text)}
-				className="flex-1 font-gen-regular text-base text-white px-3 py-3" />
+				className="flex-1 font-gen-regular text-base text-white px-4 py-3" />
 
 			<View className="mx-[8]">
 				<IconButton onPress={() => { }} color={hasText ? 'rgb(91,33,182)' : 'rgba(91,33,182,0.5)'}>
